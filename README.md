@@ -7,7 +7,7 @@
 CloudEnvironment (formerly known as CloudConfiguration) is a convenience Swift package for accessing environment variables mapped to JSON objects from various Cloud computing environments, such as, but not limited to, Cloud Foundry and Kubernetes. For example, to obtain the credentials for accessing a Cloudant database, you need to parse the `VCAP_SERVICES` environment variable when running in Cloud Foundry, while to obtain the same credentials when running in Kubernetes, you may need to parse an environment variable named `CLOUDANT_CREDENTIALS`. In other words, the path for obtaining certain environment values may differ from one cloud environment to another. By leveraging this package, you can make your Swift application environment-agnostic when it comes to obtaining such values. Using CloudEnvironment allows you to abstract these low-level details from your application's source code.
 
 ## Swift version
-The latest version of CloudEnvironment works with the `3.1.1` version of the Swift binaries. You can download this version of the Swift binaries by following this [link](https://swift.org/download/#snapshots).
+The latest version of CloudEnvironment works with the `4.0` version of the Swift binaries. You can download this version of the Swift binaries by following this [link](https://swift.org/download/#snapshots).
 
 ## Abstraction and supported search pattern types
 This package allows you to define a lookup key that your Swift application can leverage for searching its corresponding value. This abstraction decouples your application from the actual name used for the environment variable you are looking for. For example, if you created a Cloudant service named `my-awesome-cloudant-db`, you don't have to use this name as the key in your Swift code to obtain its credentials. Instead, you can define a lookup key, say `cloudant-credentials` and mapped it to the actual service name, `my-awesome-cloudant-db`.
@@ -18,7 +18,7 @@ This library also allows you to define an array of search patterns for looking u
 - `env` - Allows to search for a value mapped to an environment variable.
 - `file` - Allows to search for a value in a JSON file.
 
-You specify lookup keys and search patterns in a file named `mappings.json`. This file must exist in a `config` folder under the root folder of your Swift project. The following shows an example of a `mappings.json` file:
+You specify lookup keys and search patterns in a file named `mappings.json`. This file should reside in a `config` folder under the root folder of your Swift project. The following shows an example of a `mappings.json` file:
 
 ```javascript
 {
@@ -26,20 +26,20 @@ You specify lookup keys and search patterns in a file named `mappings.json`. Thi
         "searchPatterns": [
             "cloudfoundry:my-awesome-cloudant-db",
             "env:my_awesome_cloudant_db_credentials",
-            "file:localdev/my-awesome-cloudant-db-credentials.json"
+            "file:config/my-awesome-cloudant-db-credentials.json"
         ]
     },
     "object-storage-credentials": {
         "searchPatterns": [
             "cloudfoundry:my-awesome-object-storage",
             "env:my_awesome_object_storage_credentials",
-            "file:localdev/my-awesome-object-storage-credentials.json"
+            "file:config/my-awesome-object-storage-credentials.json"
         ]
     }
 }
 ```
 
-In the example above, `cloudant-credentials` and `object-storage-credentials` are the lookup keys your Swift application should use to look up the corresponding credentials. Please note that the path next to the `file` search pattern must be relative to the root folder of your Swift application.
+In the example above, `cloudant-credentials` and `object-storage-credentials` are the lookup keys your Swift application should use to look up the corresponding credentials. Please note that the path next to the `file` search pattern should be relative to the root folder of your Swift application.
 
 ## Usage
 To leverage the CloudEnvironment package in your Swift application, you should specify a dependency for it in your `Package.swift` file:
@@ -53,7 +53,7 @@ let package = Package(
    ...
 
    dependencies: [
-       .Package(url: "https://github.com/IBM-Swift/CloudEnvironment.git", majorVersion: 4),
+       .Package(url: "https://github.com/IBM-Swift/CloudEnvironment.git", majorVersion: 5),
 
        ...
 
