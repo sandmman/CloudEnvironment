@@ -1,3 +1,4 @@
+// swift-tools-version:4.0
 /*
 * Copyright IBM Corporation 2017
 *
