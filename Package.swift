@@ -24,6 +24,6 @@ let package = Package(
   ],
   dependencies: [
     .Package(url: "https://github.com/IBM-Swift/LoggerAPI.git", majorVersion: 1),
-    .Package(url: "https://github.com/IBM-Swift/Swift-cfenv.git", majorVersion: 5)
+    .Package(url: "https://github.com/sandmman/Swift-cfenv.git", majorVersion: 7)
   ]
 )
